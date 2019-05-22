@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Snake
 //
-//  Created by Alice Gamarnik on 5/21/19.
+//  Created by Alice Gamarnik on 5/13/19.
 //  Copyright © 2019 Alice Gamarnik. All rights reserved.
 //
 
