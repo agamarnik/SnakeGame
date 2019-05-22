@@ -1,1 +1,1 @@
-# SnakeGame
+# iOS Snake Game
