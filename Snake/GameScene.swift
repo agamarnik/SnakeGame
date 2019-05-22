@@ -24,10 +24,38 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         initializeMenu()
-        
         game = GameManager(scene: self)
-        
         initializeGameView()
+        
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeR))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeL))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeU))
+        swipeUp.direction = .up
+        view.addGestureRecognizer(swipeUp)
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeD))
+        swipeDown.direction = .down
+        view.addGestureRecognizer(swipeDown)
+    }
+    
+    @objc func swipeR() {
+        print("r")
+        game.swipe(ID: 3)
+    }
+    @objc func swipeL() {
+        print("l")
+        game.swipe(ID: 1)
+    }
+    @objc func swipeU() {
+        print("u")
+        game.swipe(ID: 2)
+    }
+    @objc func swipeD() {
+        print("d")
+        game.swipe(ID: 4)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -48,7 +76,6 @@ class GameScene: SKScene {
     }
     
     private func initializeGameView() {
-        //4
         currentScore = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         currentScore.zPosition = 1
         currentScore.position = CGPoint(x: 0, y: (frame.size.height / -2) + 60)
@@ -57,7 +84,6 @@ class GameScene: SKScene {
         currentScore.text = "Score: 0"
         currentScore.fontColor = SKColor.white
         self.addChild(currentScore)
-        //5
         let width = frame.size.width - 200
         let height = frame.size.height - 300
         let rect = CGRect(x: -width / 2, y: -height / 2, width: width, height: height)
@@ -66,7 +92,6 @@ class GameScene: SKScene {
         gameBG.zPosition = 2
         gameBG.isHidden = true
         self.addChild(gameBG)
-        //6
         createGameBoard(width: Int(width), height: Int(height))
     }
     

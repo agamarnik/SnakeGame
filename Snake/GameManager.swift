@@ -61,11 +61,19 @@ class GameManager {
         return false
     }
     
+    func swipe(ID: Int) {
+        //swipe can't conflict with current direction
+        //cant move up -> down, down -> up, left -> right, right -> left
+        if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2) {
+            if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1) {
+                playerDirection = ID
+            }
+        }
+    }
+    
     private func updatePlayerPosition() {
-        //4
         var xChange = -1
         var yChange = 0
-        //5
         switch playerDirection {
         case 1:
             //left
@@ -90,7 +98,6 @@ class GameManager {
         default:
             break
         }
-        //6
         if scene.playerPositions.count > 0 {
             var start = scene.playerPositions.count - 1
             while start > 0 {
