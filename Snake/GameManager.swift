@@ -13,7 +13,7 @@ class GameManager {
     var scene: GameScene!
     
     var nextTime: Double?
-    var timeExtension: Double = 0.5
+    var timeExtension: Double = 0.3
     var playerDirection: Int = 1 // 1 == left, 2 == up, 3 == right, 4 == down
     var currentScore: Int = 0
     
@@ -27,6 +27,9 @@ class GameManager {
         scene.playerPositions.append((10, 10))
         scene.playerPositions.append((10, 11))
         scene.playerPositions.append((10, 12))
+        scene.playerPositions.append((10, 13))
+        scene.playerPositions.append((10, 14))
+        scene.playerPositions.append((10, 15))
         renderChange()
         
         generateNewPoint()
@@ -36,15 +39,13 @@ class GameManager {
     private func generateNewPoint() {
         var randomX = CGFloat(arc4random_uniform(19))
         var randomY = CGFloat(arc4random_uniform(39))
-        //ensure new pint is not inside snake body
+        //ensure new point is not inside snake body
         while contains(a: scene.playerPositions, v: (Int(randomX), Int(randomY))) {
             randomX = CGFloat(arc4random_uniform(19))
             randomY = CGFloat(arc4random_uniform(39))
         }
         scene.scorePos = CGPoint(x: randomX, y: randomY)
     }
-    
-    /* We now have a function that runs once per second, if you want to increase the speed of your game simply lower timeExtension to a value that is greater than 0, if you want to slow down your game then increase the value of timeExtension. (Note: “1” == 1 second for timeExtension). */
     
     //update -- called every frame
     func update(time: Double) {
@@ -80,9 +81,6 @@ class GameManager {
                 scene.playerPositions.removeAll()
                 renderChange()
                 //return to menu
-                //scene.currentScore.run(SKAction.scale(to: 0, duration: 0.4) {
-                    //self.scene.currentScore.isHidden = true
-                //}
                     scene.gameBG.run(SKAction.scale(to: 0, duration: 0.4)) {
                         self.scene.gameBG.isHidden = true
                         self.scene.gameLogo.isHidden = false
@@ -155,7 +153,6 @@ class GameManager {
     
     func swipe(ID: Int) {
         //swipe can't conflict with current direction
-        //cant move up -> down, down -> up, left -> right, right -> left
         if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2) {
             if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1) {
                 if playerDirection != 0 { //if not dead

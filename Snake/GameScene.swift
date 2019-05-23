@@ -22,7 +22,7 @@ class GameScene: SKScene {
     var gameBG: SKShapeNode!
     var gameArray: [(node: SKShapeNode, x: Int, y: Int)] = []
     
-    var scorePos: CGPoint? //yellow point/food can be nil 
+    var scorePos: CGPoint? //yellow point/food, can be nil
     
     override func didMove(to view: SKView) {
         initializeMenu()
@@ -111,7 +111,7 @@ class GameScene: SKScene {
                 cellNode.strokeColor = SKColor.black
                 cellNode.zPosition = 2
                 cellNode.position = CGPoint(x: x, y: y)
-                //add to array of cells -- then add to game board
+                //add to array of cells
                 gameArray.append((node: cellNode, x: i, y: j))
                 gameBG.addChild(cellNode)
                 //iterate x
@@ -126,18 +126,11 @@ class GameScene: SKScene {
     private func startGame() {
         print("start game")
         
-        
         //hide logo and play button on game start
         self.gameLogo.isHidden = true
         self.playButton.isHidden = true
-        /*gameLogo.run(SKAction.move(by: CGVector(dx: -50, dy: 600), duration: 0.5)) {
-            self.gameLogo.isHidden = true
-        }
-        playButton.run(SKAction.scale(to: 0, duration: 0.3)) {
-            self.playButton.isHidden = true
-        } */
         
-        //move score logo to bottom
+        //move score label to bottom
         let bottomCorner = CGPoint(x: 0, y: (frame.size.height / -2) + 20)
         bestScore.run(SKAction.move(to: bottomCorner, duration: 0.4)) {
             self.gameBG.setScale(0)
@@ -145,7 +138,7 @@ class GameScene: SKScene {
             self.gameBG.isHidden = false
             self.currentScore.isHidden = false
             self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
-            self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
+            self.currentScore.run(SKAction.scale(to: 1, duration: 0))
             
             self.game.initGame()
         }
